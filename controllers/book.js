@@ -8,9 +8,9 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  const { name } = req.body;
+  const { name, status } = req.body;
   m.Book.create({
-    status: 'boleh',
+    status,
     name,
   })
     .then(data => {

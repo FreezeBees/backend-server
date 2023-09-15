@@ -30,4 +30,5 @@ async function getscans(req, res) {
   const allscan = await m.Scan.findAll();
   res.json({allscan});
 }
+
 module.exports = { index, staticdata, testdata, qr, getscans };
