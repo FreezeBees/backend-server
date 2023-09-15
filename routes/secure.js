@@ -10,8 +10,7 @@ router.get('/profile', m.requireAdminOrUser, c.user.getDetails);
 router.get('/users', m.requireAdmin, c.user.index);
 router.post('/user/:UserId', c.userUpdate.update);
 // Let's say the route below is very sensitive and we want only authorized users to have access
-router.get('/books', c.book.index);
-router.post('/books', c.book.create);
+
 router.get('/qr', m.requireAdminOrUser, c.general.qr);
 
 // router.get('/nationalneb', c.nationalneb.index);

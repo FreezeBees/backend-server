@@ -14,6 +14,8 @@ router.post('/forgot-password', c.user.passwordForgot);
 router.post('/verify-reset-password-token', c.auth.passwordResetTokenValidation);
 router.post('/reset-password', c.auth.passwordReset);
 router.get('/getallscan', c.general.getscans)
+router.get('/books', c.book.index);
+router.post('/books', c.book.create);
 
 
 module.exports = router;
