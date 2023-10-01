@@ -1,4 +1,6 @@
 'use strict';
+const { DataTypes } = require('sequelize');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,19 +12,30 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true, // Enforce uniqueness for book names
+        validate: {
+          // Use a custom validator to check for special characters
+          noSpecialChars(value) {
+            const specialCharacterRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
+            if (specialCharacterRegex.test(value)) {
+              throw new Error('Book name contains special characters');
+            }
+          },
+        },
       },
       status: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         defaultValue: Sequelize.fn('NOW'),
       },
     });
