@@ -7,16 +7,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      UserId: {
         type: Sequelize.INTEGER,
       },
-      amount: {
-        type: Sequelize.DECIMAL(10,2),
+      StudentId: {
+        type: Sequelize.STRING,
       },
-      remark: {
-        type: Sequelize.STRING
+      BillId: {
+        type: Sequelize.STRING,
       },
       dateSummonAt: {
         allowNull: false,

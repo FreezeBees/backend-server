@@ -12,6 +12,17 @@ function login(req, res, next) {
         res.status(401).json({ error: 'fail to authenticate user', details: info.message });
         return;
       }
+      console.log('something:', req.headers['user-agent']);
+      const userAgent = req.headers['user-agent'];
+      const blockedUserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36';
+
+      console.log(userAgent, blockedUserAgent, user.RoleId);
+  if (userAgent && userAgent === blockedUserAgent && user.RoleId === 1) {
+    // Respond with a 403 Forbidden status if the User-Agent is blocked
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Access denied for this browser.');
+    return;
+  }
       req.login(user, { session: false }, async (error) => {
         if (error) next(error);
         if (user.reset_token) user.update({ reset_token: null });

@@ -13,6 +13,8 @@ module.exports = {
       RoleId: 1,
       image: helper.getRandomImage(),
       verifiedAt: faker.date.past(2),
+      StudentId: 'SET21070268',
+      residence: 'Home',
     },
 
     ], {});

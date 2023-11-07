@@ -12,14 +12,16 @@ const UserModel = require('./models').User;
 passport.use('signup', new LocalStrategy({ usernameField: 'StudentId', passwordField: 'password', passReqToCallback: true },
   async (req, uname, pass, done) => {
     const {
-      name, email, password, phone, StudentId,
+      name, email, password, phone, StudentId, RoleId, residence,
     } = req.body;
+    console.log(req.body);
     UserModel.findOne({ where: { StudentId } }).then((user) => {
       if (user) return done(null, false, { message: 'That email is already taken' });
       const hashpass = bcrypt.hashSync(password, bcrypt.genSaltSync());
       const data = {
-        name, email, password: hashpass, phone, StudentId,
+        name, email, password: hashpass, phone, StudentId, RoleId, residence,
       };
+      console.log(data);
       UserModel.create(data).then((newUser) => {
         if (!newUser) return done(null, false);
         if (newUser) return done(null, newUser);

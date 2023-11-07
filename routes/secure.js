@@ -9,6 +9,8 @@ router.get('/activitylog', m.requireAdminOrUser, c.activitylog.index);
 router.get('/profile', m.requireAdminOrUser, c.user.getDetails);
 router.get('/users', m.requireAdmin, c.user.index);
 router.post('/user/:UserId', c.userUpdate.update);
+router.get('/summon/:StudentId',c.summon.showByStudentId);
+router.post('/summon',c.summon.create);
 // Let's say the route below is very sensitive and we want only authorized users to have access
 
 router.get('/qr', m.requireAdminOrUser, c.general.qr);
