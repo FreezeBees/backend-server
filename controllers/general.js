@@ -21,7 +21,7 @@ function testdata(req, res) {
 async function qr(req, res) {
   console.log(req.user.id);
   console.log('scanned', req.user.name);
-  const jane = await m.Scan.create({ name: req.user.name, StudentId: req.user.StudentId, residence: 'hostel', scannedAt: new Date()});
+  const jane = await m.Scan.create({ name: req.user.name, StudentId: req.user.StudentId, residence: req.user.residence, scannedAt: new Date()});
   console.log("Jane's auto-generated ID:", jane.id);
   res.json({message: 'Success'});
 }

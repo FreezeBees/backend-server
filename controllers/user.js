@@ -88,6 +88,17 @@ function verifyUser(req, res) {
     .catch((e) => res.status(500).send({ error: e }));
 }
 
+async function getAllUsers(req, res) {
+  try {
+    const allUsers = await m.User.findAll({ attributes: ['StudentId', 'name'] });
+    res.json({ users: allUsers });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+}
+
+
+
 module.exports = {
-  getDetails, passwordForgot, verifyUser, index,
+  getDetails, passwordForgot, verifyUser, index, getAllUsers,
 };

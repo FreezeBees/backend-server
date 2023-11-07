@@ -16,6 +16,8 @@ router.post('/reset-password', c.auth.passwordReset);
 router.get('/getallscan', c.general.getscans)
 router.get('/books', c.book.index);
 router.post('/books', c.book.create);
+router.get('/all-users', c.user.getAllUsers);
+
 
 
 module.exports = router;

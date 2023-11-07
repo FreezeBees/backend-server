@@ -10,13 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.User);
+  
     }
   }
   Summon.init({
-    UserId: DataTypes.INTEGER,
-    amount: DataTypes.DECIMAL,
-    remark: DataTypes.STRING,
+    StudentId: DataTypes.STRING,
+    BillId: DataTypes.STRING,
     dateSummonAt: DataTypes.DATE,
   }, {
     sequelize,
