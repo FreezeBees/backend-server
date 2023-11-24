@@ -23,5 +23,9 @@ router.get('/qr', m.requireAdminOrUser, c.general.qr);
 // router.post('/solution-preset/:id', m.requireAdmin, c.solutionpreset.update);
 // router.delete('/solution-preset/:id', m.requireAdmin, c.solutionpreset.destroy);
 // router.post('/solution-preset', m.requireAdmin, c.solutionpreset.create);
+router.post('/borrowBook', c.book.borrowBook);
+router.post('/returnBook', c.book.returnBook);
+router.post('/favouriteBook', c.book.favouriteBook);
+router.get('/favouriteBook', c.book.getFavouriteBook);
 
 module.exports = router;
