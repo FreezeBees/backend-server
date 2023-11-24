@@ -2,6 +2,7 @@
 /* eslint-disable linebreak-style */
 const m = require('../models');
 const helper = require('../helper');
+const { uploadFile } = require('../driver/googleDrive');
 
 async function index(req, res) {
   const {
@@ -31,8 +32,10 @@ async function index(req, res) {
   }
 }
 
-function create(req, res) {
+async function create(req, res) {
   const { name, status } = req.body;
+  const fileid = await uploadFile(req.files[0]);
+  console.log(req.body, req.files[0]);
 
   // Check for duplicate book names
   m.Book.findOne({ where: { name } })
@@ -51,6 +54,7 @@ function create(req, res) {
       m.Book.create({
         status,
         name,
+        image: fileid,
       })
         .then(data => {
           res.json({ data });
@@ -90,6 +94,7 @@ const returnBook = async (req, res) => {
     const theBook = await m.Book.findOne({ where: { id: BookId } })
     theBook.status = 'Available'
     await theBook.save()
+
     res.json({ data: theBookBorrow });
   } catch (error) {
     res.status(500).json({ error: 'Error return Book for existing book', details: error })

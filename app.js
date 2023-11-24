@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // for parsing multipart/form-data
-app.use(upload.array());
+app.use(upload.array('files'));
 app.use(express.static('public'));
 
 // passport

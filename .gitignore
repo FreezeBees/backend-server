@@ -7,3 +7,4 @@ yarn.lock
 erd.svg
 .nyc_output
 .yarn/*
+Tokenais.json
