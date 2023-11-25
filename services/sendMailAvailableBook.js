@@ -19,8 +19,10 @@ async function sendMailAvailableBook(users) {
         to: user.email,
         subject: 'Your Book Available, Borrow Now!!',
         html: `
-          Best regards,<br><br>
-          Bibliotech Support Team`,
+        <p>Dear ${user.name},</p>
+        <p>We are excited to inform you that the book you favorited is now available for borrowing at Bibliotech. Don't miss the chance to read this fantastic book!</p>
+        <p>Visit our library and borrow the book now. Happy reading!</p>
+        <p>Best regards,<br>Bibliotech Support Team</p>`,
       });
 
       console.log(`Email sent to ${user.email}, MessageId: ${info.messageId}`);

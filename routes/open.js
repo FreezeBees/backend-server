@@ -11,7 +11,6 @@ router.post('/gmi', c.general.testdata);
 router.post('/login', c.auth.login);
 router.post('/signup', c.auth.signup);
 router.post('/forgot-password', c.user.passwordForgot);
-router.post('/send-mail-available-book', c.user.sendMailForAvailableBook);
 router.post('/verify-reset-password-token', c.auth.passwordResetTokenValidation);
 router.post('/reset-password', c.auth.passwordReset);
 router.get('/getallscan', c.general.getscans)

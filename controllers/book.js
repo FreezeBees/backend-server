@@ -59,6 +59,7 @@ async function create(req, res) {
         image: fileid,
       })
         .then(data => {
+          console.log('databuku:', data);
           res.json({ data });
         })
         .catch(error => {
@@ -69,23 +70,6 @@ async function create(req, res) {
       res.status(500).json({ error: 'Error checking for existing book', details: error });
     });
 }
-
-// const borrowBook = async (req, res) => {
-//   try {
-//     const { BookId, UserId } = req.body;
-//     const theBook = await m.Book.findOne({ where: { id: BookId }, include:[{ model: m.BookBorrow }] });
-//     console.log('hello', theBook.BookBorrows);
-//     const hasBorrower = !!theBook.BookBorrows.length;
-//     console.log(hasBorrower);
-//     if (hasBorrower && !theBook.BookBorrows[theBook.BookBorrows.length-1].dateReturnAt) return res.status(500).json({ error: 'Error book n/a for borrowing'});
-//     const data = await m.BookBorrow.create({ BookId, UserId, dateBorrowAt: new Date() });
-//     theBook.status = 'Not Available';
-//     await theBook.save();
-//     return res.json({ data });
-//   } catch (error) {
-//     return res.status(500).json({ error: 'Error borrow Book for existing book', details: error });
-//   }
-// };
 
 const borrowBook = async (req, res) => {
   try {
@@ -107,22 +91,6 @@ const borrowBook = async (req, res) => {
     theBook.status = 'Not Available';
     await theBook.save();
 
-    // Fetch the updated book list
-    // const updatedBooks = await m.Book.findAll({
-    //   include: [
-    //     {
-    //       model: m.BookBorrow,
-    //     },
-    //     {
-    //       model: m.BookFavourite,
-    //     },
-    //   ],
-    // });
-
-    // console.log('Updated Book List:', updatedBooks);
-    // res.json({
-    //   data: updatedBooks,
-    // });
     res.json({
       data: 'success',
     });
