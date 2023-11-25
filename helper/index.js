@@ -54,6 +54,7 @@ function queryParameters(args) {
   if (sortby) {
     order.order = [sortby.split(',')];
   }
+  console.log('Order:', order);
 
   return {
     Sequelize,
