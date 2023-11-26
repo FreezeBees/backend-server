@@ -103,8 +103,17 @@ const borrowBook = async (req, res) => {
 };
 
 const returnBook = async (req, res) => {
-  const { BookId, UserId } = req.body;
+  const { BookId, StudentId } = req.body;
   try {
+    // Check if StudentId is provided and get the corresponding UserId
+    let UserId;
+    if (StudentId) {
+      UserId = (await m.User.findOne({ where: { StudentId } })).id;
+    } else {
+      // Handle the case where StudentId is not provided (optional, depending on your requirements)
+      return res.status(400).json({ error: 'StudentId is required for returning a book' });
+    }
+
     // Retrieve the latest borrow record for the specific book and user
     const theBookBorrow = await m.BookBorrow.findOne({
       where: { BookId, UserId },
