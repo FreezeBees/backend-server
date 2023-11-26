@@ -42,7 +42,7 @@ function getDetails(req, res) {
     m.User.findOne({
       attributes: { exclude: ['password', 'updatedAt', 'reset_token'] },
       where: { id },
-      include: [{ model: m.Role, attributes: ['id', 'name'] }],
+      include: [{ model: m.Role, attributes: ['id', 'name'] }, {model: m.BookBorrow, include: { model: m.Book }}],
     })
       .then((data) => res.json({ data }))
       .catch((e) => res.status(500).send({ error: e }));

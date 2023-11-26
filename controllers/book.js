@@ -73,7 +73,10 @@ async function create(req, res) {
 
 const borrowBook = async (req, res) => {
   try {
-    const { BookId, UserId } = req.body;
+    let { BookId, UserId, StudentId } = req.body;
+    if (StudentId) {
+      UserId = (await m.User.findOne({ where: { StudentId } })).id;
+    }
     const theBook = await m.Book.findOne({
       where: { id: BookId },
       include: [{ model: m.BookBorrow }],
@@ -167,7 +170,12 @@ const getFavouriteBook = async (req, res) => {
   try {
     const favoriteBooks = await m.BookFavourite.findAll({
       where: { UserId },
-      include: [{ model: m.Book }],
+      include: [{ model: m.Book, 
+        include: [
+        {
+          model: m.BookFavourite,
+        },
+      ] }],
       order: [['createdAt', 'ASC']], // You can change 'createdAt' to the actual timestamp field
     });
 
