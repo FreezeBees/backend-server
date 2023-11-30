@@ -138,9 +138,26 @@ const returnBook = async (req, res) => {
     });
 
     // Prepare an array of user emails for sending emails
+    // const usersWithEmails = favoriteUsers.map(favorite => ({ email: favorite.User.email }));
+
+    // // Send email to all favorite users
+    // for (const favorite of favoriteUsers) {
+    //   const user = favorite.User;
+    //   try {
+    //     // Assuming svc.sendMailAvailableBook(user) is an asynchronous operation
+    //     await svc.sendMailAvailableBook(user);
+    //     console.log(`Email sent to user with ID ${user.id}`);
+    //   } catch (error) {
+    //     console.error(`Failed to send email to user with ID ${user.id}:`, error);
+    //   }
+    // }
+
+    // // Send a single email to all favorite users
+    // await svc.sendMailAvailableBook(usersWithEmails);
+
     const usersWithEmails = favoriteUsers.map(favorite => ({ email: favorite.User.email }));
 
-    // Send email to all favorite users
+    // Send email to all favorite users individually
     for (const favorite of favoriteUsers) {
       const user = favorite.User;
       try {
@@ -153,7 +170,12 @@ const returnBook = async (req, res) => {
     }
 
     // Send a single email to all favorite users
-    await svc.sendMailAvailableBook(usersWithEmails);
+    try {
+      await svc.sendMailAvailableBook(usersWithEmails);
+      console.log('Email sent to all favorite users');
+    } catch (error) {
+      console.error('Failed to send email to all favorite users:', error);
+    }
 
     res.json({ data: theBookBorrow });
   } catch (error) {
@@ -179,12 +201,14 @@ const getFavouriteBook = async (req, res) => {
   try {
     const favoriteBooks = await m.BookFavourite.findAll({
       where: { UserId },
-      include: [{ model: m.Book, 
+      include: [{
+        model: m.Book,
         include: [
-        {
-          model: m.BookFavourite,
-        },
-      ] }],
+          {
+            model: m.BookFavourite,
+          },
+        ],
+      }],
       order: [['createdAt', 'ASC']], // You can change 'createdAt' to the actual timestamp field
     });
 
